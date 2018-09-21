@@ -18,9 +18,6 @@
   ],
   "security": [
     {
-      "clientIdHeader": [
-
-      ]
     }
   ],
   "securityDefinitions": {
@@ -43,6 +40,9 @@
     },
     "cors": {
       "enabled": true
+    },
+    "application-authentication": {
+      "certificate": false
     },
     "assembly": {
       "execute": [
