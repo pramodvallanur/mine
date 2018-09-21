@@ -1,0 +1,44 @@
+{
+  "info": {
+    "version": "1.0.0",
+    "title": "Bank A Product",
+    "name": "bank-a-product"
+  },
+  "gateways": [
+    "datapower-gateway"
+  ],
+  "plans": {
+    "default-plan": {
+      "rate-limits": {
+        "default": {
+          "value": "100/1hour"
+        }
+      },
+      "title": "Default Plan",
+      "description": "Default Plan",
+      "approval": false
+    }
+  },
+  "apis": {
+    "IBM APIM BankA1.0.0": {
+      "name": "ibm-apim-banka:1.0.0"
+    }
+  },
+  "visibility": {
+    "view": {
+      "type": "public",
+      "orgs": [
+
+      ],
+      "enabled": true
+    },
+    "subscribe": {
+      "type": "authenticated",
+      "orgs": [
+
+      ],
+      "enabled": true
+    }
+  },
+  "product": "1.0.0"
+}
