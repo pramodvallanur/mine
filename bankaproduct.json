@@ -19,7 +19,7 @@
     }
   },
   "apis": {
-    "IBM APIM BankA1.0.0": {
+    "apititle": {
       "name": "ibm-apim-banka:1.0.0"
     }
   },
