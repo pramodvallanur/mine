@@ -1,7 +1,8 @@
 {
   "info": {
     "version": "1.0.0",
-    "title": "Bank A Product"   
+    "title": "Bank A Product",
+    "name": "bank-a-product"
   },
   "gateways": [
     "datapower-gateway"
