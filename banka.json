@@ -1,7 +1,8 @@
 {
   "swagger": "2.0",
   "info": {
-    "title": "IBM APIM BankA",    
+    "title": "IBM APIM BankA",
+    "x-ibm-name": "ibm-apim-banka",
     "version": "1.0.0",
     "description": "API resources related to the financial industry.\n\nYou may download the swagger.json definition to use in your API Management demos.\n\nOptionally, you can obtain the [source code](https://hub.jazz.net/git/bakert/apim-banka) and run it locally."
   },
@@ -32,7 +33,7 @@
     "enforced": true,
     "properties": {
       "target-url": {
-        "value": "https://apim-services.mybluemix.net/banka/v1/branches",
+        "value": "https://apim-services.mybluemix.net",
         "description": "The URL of the target service",
         "encoded": false
       }
@@ -50,13 +51,15 @@
             "title": "proxy",
             "version": "1.0.0",
             "verb": "keep",
-            "target-url": "$(target-url)"
+            "target-url": "$(target-url)$(request.path)"
           }
         }
       ]
     },
     "gateway": "datapower-gateway",
-    "type": "rest"
+    "type": "rest",
+    "catalogs": {
+    }
   },
   "tags": [
     {
