@@ -1,0 +1,248 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "title": "Simple BankA",
+    "x-ibm-name": "simple-banka",
+    "version": "1.0.0",
+    "description": "API resources related to the financial industry.\n\nYou may download the swagger.json definition to use in your API Management demos.\n\nOptionally, you can obtain the [source code](https://hub.jazz.net/git/bakert/apim-banka) and run it locally."
+  },
+  "schemes": [
+    "https"
+  ],
+  "basePath": "/banka/v1",
+  "produces": [
+    "application/json"
+  ],
+  "consumes": [
+    "application/json"
+  ],
+  "security": [
+    {
+      "Client ID": [
+
+      ]
+    }
+  ],
+  "securityDefinitions": {
+    "Client ID": {
+      "type": "apiKey",
+      "name": "X-custom-Client-Id",
+      "in": "header",
+      "x-key-type": "client_id"
+    }
+  },
+  "x-ibm-configuration": {
+    "phase": "realized",
+    "testable": true,
+    "enforced": true,
+    "properties": {
+      "target-url": {
+        "value": "https://apim-services.mybluemix.net",
+        "description": "The URL of the target service",
+        "encoded": false
+      }
+    },
+    "cors": {
+      "enabled": true
+    },
+    "application-authentication": {
+      "certificate": false
+    },
+    "assembly": {
+      "execute": [
+        {
+          "invoke": {
+            "version": "2.0.0",
+            "title": "invoke",
+            "header-control": {
+              "type": "blacklist",
+              "values": [
+
+              ]
+            },
+            "parameter-control": {
+              "type": "whitelist",
+              "values": [
+
+              ]
+            },
+            "timeout": 60,
+            "verb": "keep",
+            "cache-response": "protocol",
+            "cache-ttl": 900,
+            "stop-on-error": [
+
+            ],
+            "target-url": "$(target-url)$(request.path)",
+            "inject-proxy-headers": true
+          }
+        }
+      ]
+    },
+    "gateway": "datapower-api-gateway",
+    "type": "rest",
+    "catalogs": {
+    },
+    "activity-log": {
+      "enabled": true,
+      "error-content": "header",
+      "success-content": "activity"
+    }
+  },
+  "tags": [
+    {
+      "name": "branch",
+      "description": "operations for branch information"
+    },
+    {
+      "name": "customer",
+      "description": "operations for customer accounts"
+    },
+    {
+      "name": "loan",
+      "description": "operations for loans"
+    }
+  ],
+  "definitions": {
+    "address": {
+      "properties": {
+        "street1": {
+          "type": "string"
+        },
+        "street2": {
+          "type": "string"
+        },
+        "city": {
+          "type": "string"
+        },
+        "state": {
+          "type": "string"
+        },
+        "zip_code": {
+          "type": "string"
+        }
+      },
+      "additionalProperties": false
+    },
+    "account": {
+      "properties": {
+        "id": {
+          "type": "string"
+        },
+        "name": {
+          "type": "string"
+        },
+        "type": {
+          "type": "string"
+        },
+        "balance": {
+          "type": "number",
+          "format": "double"
+        },
+        "status": {
+          "type": "string"
+        },
+        "credit_limit": {
+          "type": "number",
+          "format": "double"
+        },
+        "customer_id": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "id"
+      ],
+      "additionalProperties": false
+    },
+    "customer": {
+      "description": "operations for customer accounts",
+      "properties": {
+        "id": {
+          "type": "string"
+        },
+        "first_name": {
+          "type": "string"
+        },
+        "last_name": {
+          "type": "string"
+        },
+        "email": {
+          "type": "string"
+        },
+        "address": {
+          "$ref": "#/definitions/address"
+        },
+        "dob": {
+          "type": "string",
+          "format": "date"
+        }
+      },
+      "required": [
+        "id"
+      ],
+      "additionalProperties": false
+    },
+    "branch": {
+      "description": "operations for branch information",
+      "properties": {
+        "id": {
+          "type": "string"
+        },
+        "type": {
+          "type": "string"
+        },
+        "phone": {
+          "type": "string"
+        },
+        "address": {
+          "$ref": "#/definitions/address"
+        }
+      },
+      "required": [
+        "id"
+      ],
+      "additionalProperties": false
+    },
+    "quote": {
+      "properties": {
+        "monthly_payment": {
+          "type": "number"
+        }
+      }
+    }
+  },
+  "paths": {
+    "/branches": {
+      "get": {
+        "tags": [
+          "branch"
+        ],
+        "summary": "Find all instances of the model matched by filter from the data source.",
+        "operationId": "branch.find",
+        "parameters": [
+          {
+            "name": "filter",
+            "in": "query",
+            "description": "Filter defining fields, where, include, order, offset, and limit",
+            "required": false,
+            "type": "string",
+            "format": "JSON"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Request was successful",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/branch"
+              }
+            }
+          }
+        },
+        "deprecated": false
+      }
+    }
+  }
+}
