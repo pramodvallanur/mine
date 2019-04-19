@@ -124,65 +124,6 @@
       },
       "additionalProperties": false
     },
-    "account": {
-      "properties": {
-        "id": {
-          "type": "string"
-        },
-        "name": {
-          "type": "string"
-        },
-        "type": {
-          "type": "string"
-        },
-        "balance": {
-          "type": "number",
-          "format": "double"
-        },
-        "status": {
-          "type": "string"
-        },
-        "credit_limit": {
-          "type": "number",
-          "format": "double"
-        },
-        "customer_id": {
-          "type": "string"
-        }
-      },
-      "required": [
-        "id"
-      ],
-      "additionalProperties": false
-    },
-    "customer": {
-      "description": "operations for customer accounts",
-      "properties": {
-        "id": {
-          "type": "string"
-        },
-        "first_name": {
-          "type": "string"
-        },
-        "last_name": {
-          "type": "string"
-        },
-        "email": {
-          "type": "string"
-        },
-        "address": {
-          "$ref": "#/definitions/address"
-        },
-        "dob": {
-          "type": "string",
-          "format": "date"
-        }
-      },
-      "required": [
-        "id"
-      ],
-      "additionalProperties": false
-    },
     "branch": {
       "description": "operations for branch information",
       "properties": {
@@ -203,13 +144,6 @@
         "id"
       ],
       "additionalProperties": false
-    },
-    "quote": {
-      "properties": {
-        "monthly_payment": {
-          "type": "number"
-        }
-      }
     }
   },
   "paths": {
