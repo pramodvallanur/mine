@@ -1,0 +1,875 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "title": "IBM APIM BankA10",
+    "x-ibm-name": "ibm-apim-banka10",
+    "version": "1.0.0",
+    "description": "API resources related to the financial industry.\n\nYou may download the swagger.json definition to use in your API Management demos.\n\nOptionally, you can obtain the [source code](https://hub.jazz.net/git/bakert/apim-banka) and run it locally."
+  },
+  "schemes": [
+    "https"
+  ],
+  "basePath": "/banka10/v1",
+  "produces": [
+    "application/json"
+  ],
+  "consumes": [
+    "application/json"
+  ],
+  "security": [
+    {
+    }
+  ],
+  "securityDefinitions": {
+    "clientIdHeader": {
+      "type": "apiKey",
+      "in": "header",
+      "name": "X-IBM-Client-Id"
+    }
+  },
+  "x-ibm-configuration": {
+    "phase": "realized",
+    "testable": true,
+    "enforced": true,
+    "properties": {
+      "target-url": {
+        "value": "https://apictutorials.mybluemix.net",
+        "description": "The URL of the target service",
+        "encoded": false
+      }
+    },
+    "cors": {
+      "enabled": true
+    },
+    "application-authentication": {
+      "certificate": false
+    },
+    "assembly": {
+      "execute": [
+        {
+          "invoke": {
+            "version": "2.0.0",
+            "title": "invoke",
+            "header-control": {
+              "type": "blacklist",
+              "values": [
+
+              ]
+            },
+            "parameter-control": {
+              "type": "whitelist",
+              "values": [
+
+              ]
+            },
+            "timeout": 60,
+            "verb": "keep",
+            "cache-response": "protocol",
+            "cache-ttl": 900,
+            "stop-on-error": [
+
+            ],
+            "target-url": "$(target-url)/branches"
+          }
+        }
+      ]
+    },
+    "gateway": "datapower-api-gateway",
+    "type": "rest",
+    "catalogs": {
+    },
+    "activity-log": {
+      "enabled": true,
+      "error-content": "header",
+      "success-content": "activity"
+    }
+  },
+  "tags": [
+    {
+      "name": "branch",
+      "description": "operations for branch information"
+    },
+    {
+      "name": "customer",
+      "description": "operations for customer accounts"
+    },
+    {
+      "name": "loan",
+      "description": "operations for loans"
+    }
+  ],
+  "definitions": {
+    "address": {
+      "properties": {
+        "street1": {
+          "type": "string"
+        },
+        "street2": {
+          "type": "string"
+        },
+        "city": {
+          "type": "string"
+        },
+        "state": {
+          "type": "string"
+        },
+        "zip_code": {
+          "type": "string"
+        }
+      },
+      "additionalProperties": false
+    },
+    "account": {
+      "properties": {
+        "id": {
+          "type": "string"
+        },
+        "name": {
+          "type": "string"
+        },
+        "type": {
+          "type": "string"
+        },
+        "balance": {
+          "type": "number",
+          "format": "double"
+        },
+        "status": {
+          "type": "string"
+        },
+        "credit_limit": {
+          "type": "number",
+          "format": "double"
+        },
+        "customer_id": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "id"
+      ],
+      "additionalProperties": false
+    },
+    "customer": {
+      "description": "operations for customer accounts",
+      "properties": {
+        "id": {
+          "type": "string"
+        },
+        "first_name": {
+          "type": "string"
+        },
+        "last_name": {
+          "type": "string"
+        },
+        "email": {
+          "type": "string"
+        },
+        "address": {
+          "$ref": "#/definitions/address"
+        },
+        "dob": {
+          "type": "string",
+          "format": "date"
+        }
+      },
+      "required": [
+        "id"
+      ],
+      "additionalProperties": false
+    },
+    "branch": {
+      "description": "operations for branch information",
+      "properties": {
+        "id": {
+          "type": "string"
+        },
+        "type": {
+          "type": "string"
+        },
+        "phone": {
+          "type": "string"
+        },
+        "address": {
+          "$ref": "#/definitions/address"
+        }
+      },
+      "required": [
+        "id"
+      ],
+      "additionalProperties": false
+    },
+    "quote": {
+      "properties": {
+        "monthly_payment": {
+          "type": "number"
+        }
+      }
+    }
+  },
+  "paths": {
+    "/branches": {
+      "post": {
+        "tags": [
+          "branch"
+        ],
+        "summary": "Create a new instance of the model and persist it into the data source.",
+        "operationId": "branch.create",
+        "parameters": [
+          {
+            "name": "data",
+            "in": "body",
+            "description": "Model instance data",
+            "required": false,
+            "schema": {
+              "$ref": "#/definitions/branch"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Request was successful",
+            "schema": {
+              "$ref": "#/definitions/branch"
+            }
+          }
+        },
+        "deprecated": false
+      },
+      "put": {
+        "tags": [
+          "branch"
+        ],
+        "summary": "Update an existing model instance or insert a new one into the data source.",
+        "operationId": "branch.upsert",
+        "parameters": [
+          {
+            "name": "data",
+            "in": "body",
+            "description": "Model instance data",
+            "required": false,
+            "schema": {
+              "$ref": "#/definitions/branch"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Request was successful",
+            "schema": {
+              "$ref": "#/definitions/branch"
+            }
+          }
+        },
+        "deprecated": false
+      },
+      "get": {
+        "tags": [
+          "branch"
+        ],
+        "summary": "Find all instances of the model matched by filter from the data source.",
+        "operationId": "branch.find",
+        "parameters": [
+          {
+            "name": "filter",
+            "in": "query",
+            "description": "Filter defining fields, where, include, order, offset, and limit",
+            "required": false,
+            "type": "string",
+            "format": "JSON"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Request was successful",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/branch"
+              }
+            }
+          }
+        },
+        "deprecated": false
+      }
+    },
+    "/branches/{id}/exists": {
+      "get": {
+        "tags": [
+          "branch"
+        ],
+        "summary": "Check whether a model instance exists in the data source.",
+        "operationId": "branch.exists",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "Model id",
+            "required": true,
+            "type": "string",
+            "format": "JSON"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Request was successful",
+            "schema": {
+              "type": "object"
+            }
+          }
+        },
+        "deprecated": false
+      }
+    },
+    "/branches/{id}": {
+      "get": {
+        "tags": [
+          "branch"
+        ],
+        "summary": "Find a model instance by id from the data source.",
+        "operationId": "branch.findById",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "Model id",
+            "required": true,
+            "type": "string",
+            "format": "JSON"
+          },
+          {
+            "name": "filter",
+            "in": "query",
+            "description": "Filter defining fields and include",
+            "required": false,
+            "type": "string",
+            "format": "JSON"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Request was successful",
+            "schema": {
+              "$ref": "#/definitions/branch"
+            }
+          }
+        },
+        "deprecated": false
+      },
+      "delete": {
+        "tags": [
+          "branch"
+        ],
+        "summary": "Delete a model instance by id from the data source.",
+        "operationId": "branch.deleteById",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "Model id",
+            "required": true,
+            "type": "string",
+            "format": "JSON"
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "Request was successful"
+          }
+        },
+        "deprecated": false
+      },
+      "put": {
+        "tags": [
+          "branch"
+        ],
+        "summary": "Update attributes for a model instance and persist it into the data source.",
+        "operationId": "branch.prototype.updateAttributes",
+        "parameters": [
+          {
+            "name": "data",
+            "in": "body",
+            "description": "An object of model property name/value pairs",
+            "required": false,
+            "schema": {
+              "$ref": "#/definitions/branch"
+            }
+          },
+          {
+            "name": "id",
+            "in": "path",
+            "description": "PersistedModel id",
+            "required": true,
+            "type": "string",
+            "format": "JSON"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Request was successful",
+            "schema": {
+              "$ref": "#/definitions/branch"
+            }
+          }
+        },
+        "deprecated": false
+      }
+    },
+    "/branches/count": {
+      "get": {
+        "tags": [
+          "branch"
+        ],
+        "summary": "Count instances of the model matched by where from the data source.",
+        "operationId": "branch.count",
+        "parameters": [
+          {
+            "name": "where",
+            "in": "query",
+            "description": "Criteria to match model instances",
+            "required": false,
+            "type": "string",
+            "format": "JSON"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Request was successful",
+            "schema": {
+              "type": "object"
+            }
+          }
+        },
+        "deprecated": false
+      }
+    },
+    "/customers/{id}/accounts/{fk}": {
+      "get": {
+        "tags": [
+          "customer"
+        ],
+        "summary": "Find a related item by id for accounts.",
+        "operationId": "customer.prototype.__findById__accounts",
+        "parameters": [
+          {
+            "name": "fk",
+            "in": "path",
+            "description": "Foreign key for accounts",
+            "required": true,
+            "type": "string",
+            "format": "JSON"
+          },
+          {
+            "name": "id",
+            "in": "path",
+            "description": "PersistedModel id",
+            "required": true,
+            "type": "string",
+            "format": "JSON"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Request was successful",
+            "schema": {
+              "$ref": "#/definitions/account"
+            }
+          }
+        },
+        "deprecated": false
+      },
+      "delete": {
+        "tags": [
+          "customer"
+        ],
+        "summary": "Delete a related item by id for accounts.",
+        "operationId": "customer.prototype.__destroyById__accounts",
+        "parameters": [
+          {
+            "name": "fk",
+            "in": "path",
+            "description": "Foreign key for accounts",
+            "required": true,
+            "type": "string",
+            "format": "JSON"
+          },
+          {
+            "name": "id",
+            "in": "path",
+            "description": "PersistedModel id",
+            "required": true,
+            "type": "string",
+            "format": "JSON"
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "Request was successful"
+          }
+        },
+        "deprecated": false
+      },
+      "put": {
+        "tags": [
+          "customer"
+        ],
+        "summary": "Update a related item by id for accounts.",
+        "operationId": "customer.prototype.__updateById__accounts",
+        "parameters": [
+          {
+            "name": "fk",
+            "in": "path",
+            "description": "Foreign key for accounts",
+            "required": true,
+            "type": "string",
+            "format": "JSON"
+          },
+          {
+            "name": "data",
+            "in": "body",
+            "required": false,
+            "schema": {
+              "$ref": "#/definitions/account"
+            }
+          },
+          {
+            "name": "id",
+            "in": "path",
+            "description": "PersistedModel id",
+            "required": true,
+            "type": "string",
+            "format": "JSON"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Request was successful",
+            "schema": {
+              "$ref": "#/definitions/account"
+            }
+          }
+        },
+        "deprecated": false
+      }
+    },
+    "/customers/{id}/accounts": {
+      "get": {
+        "tags": [
+          "customer"
+        ],
+        "summary": "Queries accounts of customer.",
+        "operationId": "customer.prototype.__get__accounts",
+        "parameters": [
+          {
+            "name": "filter",
+            "in": "query",
+            "required": false,
+            "type": "string",
+            "format": "JSON"
+          },
+          {
+            "name": "id",
+            "in": "path",
+            "description": "PersistedModel id",
+            "required": true,
+            "type": "string",
+            "format": "JSON"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Request was successful",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/account"
+              }
+            }
+          }
+        },
+        "deprecated": false
+      },
+      "post": {
+        "tags": [
+          "customer"
+        ],
+        "summary": "Creates a new instance in accounts of this model.",
+        "operationId": "customer.prototype.__create__accounts",
+        "parameters": [
+          {
+            "name": "data",
+            "in": "body",
+            "required": false,
+            "schema": {
+              "$ref": "#/definitions/account"
+            }
+          },
+          {
+            "name": "id",
+            "in": "path",
+            "description": "PersistedModel id",
+            "required": true,
+            "type": "string",
+            "format": "JSON"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Request was successful",
+            "schema": {
+              "$ref": "#/definitions/account"
+            }
+          }
+        },
+        "deprecated": false
+      },
+      "delete": {
+        "tags": [
+          "customer"
+        ],
+        "summary": "Deletes all accounts of this model.",
+        "operationId": "customer.prototype.__delete__accounts",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "PersistedModel id",
+            "required": true,
+            "type": "string",
+            "format": "JSON"
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "Request was successful"
+          }
+        },
+        "deprecated": false
+      }
+    },
+    "/customers/{id}/accounts/count": {
+      "get": {
+        "tags": [
+          "customer"
+        ],
+        "summary": "Counts accounts of customer.",
+        "operationId": "customer.prototype.__count__accounts",
+        "parameters": [
+          {
+            "name": "where",
+            "in": "query",
+            "description": "Criteria to match model instances",
+            "required": false,
+            "type": "string",
+            "format": "JSON"
+          },
+          {
+            "name": "id",
+            "in": "path",
+            "description": "PersistedModel id",
+            "required": true,
+            "type": "string",
+            "format": "JSON"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Request was successful",
+            "schema": {
+              "type": "object"
+            }
+          }
+        },
+        "deprecated": false
+      }
+    },
+    "/customers": {
+      "post": {
+        "tags": [
+          "customer"
+        ],
+        "summary": "Create a new instance of the model and persist it into the data source.",
+        "operationId": "customer.create",
+        "parameters": [
+          {
+            "name": "data",
+            "in": "body",
+            "description": "Model instance data",
+            "required": false,
+            "schema": {
+              "$ref": "#/definitions/customer"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Request was successful",
+            "schema": {
+              "$ref": "#/definitions/customer"
+            }
+          }
+        },
+        "deprecated": false
+      },
+      "put": {
+        "tags": [
+          "customer"
+        ],
+        "summary": "Update an existing model instance or insert a new one into the data source.",
+        "operationId": "customer.upsert",
+        "parameters": [
+          {
+            "name": "data",
+            "in": "body",
+            "description": "Model instance data",
+            "required": false,
+            "schema": {
+              "$ref": "#/definitions/customer"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Request was successful",
+            "schema": {
+              "$ref": "#/definitions/customer"
+            }
+          }
+        },
+        "deprecated": false
+      },
+      "get": {
+        "tags": [
+          "customer"
+        ],
+        "summary": "Find all instances of the model matched by filter from the data source.",
+        "operationId": "customer.find",
+        "parameters": [
+          {
+            "name": "filter",
+            "in": "query",
+            "description": "Filter defining fields, where, include, order, offset, and limit",
+            "required": false,
+            "type": "string",
+            "format": "JSON"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Request was successful",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/customer"
+              }
+            }
+          }
+        },
+        "deprecated": false
+      }
+    },
+    "/customers/{id}": {
+      "get": {
+        "tags": [
+          "customer"
+        ],
+        "summary": "Find a model instance by id from the data source.",
+        "operationId": "customer.findById",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "Model id",
+            "required": true,
+            "type": "string",
+            "format": "JSON"
+          },
+          {
+            "name": "filter",
+            "in": "query",
+            "description": "Filter defining fields and include",
+            "required": false,
+            "type": "string",
+            "format": "JSON"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Request was successful",
+            "schema": {
+              "$ref": "#/definitions/customer"
+            }
+          }
+        },
+        "deprecated": false
+      },
+      "delete": {
+        "tags": [
+          "customer"
+        ],
+        "summary": "Delete a model instance by id from the data source.",
+        "operationId": "customer.deleteById",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "Model id",
+            "required": true,
+            "type": "string",
+            "format": "JSON"
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "Request was successful"
+          }
+        },
+        "deprecated": false
+      }
+    },
+    "/loans/quote": {
+      "get": {
+        "tags": [
+          "loan"
+        ],
+        "summary": "Calculate a monthly payment",
+        "operationId": "loan.quote",
+        "parameters": [
+          {
+            "name": "apr",
+            "in": "query",
+            "description": "annual percentage rate (%)",
+            "required": true,
+            "type": "number",
+            "format": "double"
+          },
+          {
+            "name": "amount",
+            "in": "query",
+            "description": "total amount of the loan ($)",
+            "required": true,
+            "type": "number",
+            "format": "double"
+          },
+          {
+            "name": "term",
+            "in": "query",
+            "description": "loan duration (months)",
+            "required": true,
+            "type": "number",
+            "format": "double"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Request was successful",
+            "schema": {
+              "$ref": "#/definitions/quote"
+            }
+          }
+        },
+        "deprecated": false
+      }
+    }
+  }
+}

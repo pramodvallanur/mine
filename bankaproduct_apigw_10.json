@@ -1,0 +1,44 @@
+{
+  "info": {
+    "version": "1.0.0",
+    "title": "Bank A10 Product",
+    "name": "bank-a10-product"
+  },
+  "gateways": [
+    "datapower-api-gateway"
+  ],
+  "plans": {
+    "default-plan": {
+      "rate-limits": {
+        "default": {
+          "value": "100/1hour"
+        }
+      },
+      "title": "Default Plan",
+      "description": "Default Plan",
+      "approval": false
+    }
+  },
+  "apis": {
+    "apititle": {
+      "name": "ibm-apim-banka10:1.0.0"
+    }
+  },
+  "visibility": {
+    "view": {
+      "type": "public",
+      "orgs": [
+
+      ],
+      "enabled": true
+    },
+    "subscribe": {
+      "type": "authenticated",
+      "orgs": [
+
+      ],
+      "enabled": true
+    }
+  },
+  "product": "1.0.0"
+}
