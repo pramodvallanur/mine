@@ -33,7 +33,7 @@
     "enforced": true,
     "properties": {
       "target-url": {
-        "value": "https://apim-services.mybluemix.net",
+        "value": "https://apictutorials.mybluemix.net",
         "description": "The URL of the target service",
         "encoded": false
       }
